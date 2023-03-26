@@ -1,0 +1,17 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+
+namespace Trainer_backend.Model
+{
+    [Serializable]
+    public class Routine: BaseEntity
+    {
+        [Required]
+        [DataMember]
+        public List<WorkSet> WorkSets { get; set; } = new ();
+        [Required]
+        [DataMember]
+        public DateTime Date { get; set; }
+    }
+}
