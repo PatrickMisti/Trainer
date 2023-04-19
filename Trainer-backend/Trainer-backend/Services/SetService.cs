@@ -21,7 +21,7 @@ namespace Trainer_backend.Services
 
         public async Task<bool> Save(Set set)
         {
-            return await _repo.Create(set);
+            return await _repo.Merge(set);
         }
 
         public async Task<bool> DeleteById(int id)
@@ -41,7 +41,7 @@ namespace Trainer_backend.Services
 
         public async Task<bool> UpdateSet(Set set)
         {
-            return await _repo.Update(set) > 0;
+            return await _repo.Merge(set);
         }
     }
 }

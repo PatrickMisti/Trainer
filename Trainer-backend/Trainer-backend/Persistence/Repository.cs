@@ -16,7 +16,7 @@ namespace Trainer_backend.Persistence
         Task<T> GetById(int id);
     }
 
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, new()
     {
         public Repository()
         {
@@ -30,7 +30,7 @@ namespace Trainer_backend.Persistence
                 using var db = new DatabaseContext();
 
                 db.Set<T>().Add(entity);
-                return (await db.SaveChangesAsync()) >= 0;
+                return await db.SaveChangesAsync() >= 0;
             } catch (Exception ex)
             {
                 throw new DataException(ex.Message);
@@ -41,7 +41,7 @@ namespace Trainer_backend.Persistence
         {
             try
             {
-                using var db = new DatabaseContext();
+                await using var db = new DatabaseContext();
                 db.Set<T>().Remove(entity);
                 return await db.SaveChangesAsync();
             } catch (Exception ex)
@@ -54,7 +54,7 @@ namespace Trainer_backend.Persistence
         {
             try
             {
-                using var db = new DatabaseContext();
+                await using var db = new DatabaseContext();
                 var item = await db.Set<T>().FindAsync(entityId);
                 db.Set<T>().Remove(item!);
                 return await db.SaveChangesAsync();
@@ -67,21 +67,21 @@ namespace Trainer_backend.Persistence
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            using var db = new DatabaseContext();
+            await using var db = new DatabaseContext();
             return await db.Set<T>().ToListAsync();
         }
 
         public async Task<T> GetById(int id)
         {
-            using var db = new DatabaseContext();
-            return await db.Set<T>().FindAsync(id);
+            await using var db = new DatabaseContext();
+            return await db.Set<T>().FindAsync(id) ?? new T();
         }
 
         public async Task<int> Update(T entity)
         {
             try
             {
-                using var db = new DatabaseContext();
+                await using var db = new DatabaseContext();
                 db.Set<T>().Update(entity);
                 return await db.SaveChangesAsync();
             } catch(Exception ex)

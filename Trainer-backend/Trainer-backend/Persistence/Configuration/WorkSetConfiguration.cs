@@ -10,7 +10,9 @@ namespace Trainer_backend.Persistence.Configuration
             builder
                 .HasMany(p => p.Sets)
                 .WithOne()
-                .HasForeignKey(k => k.WorkSetId).IsRequired();
+                .HasForeignKey(k => k.WorkSetId);
+
+            builder.Ignore(i => i.RoutineId);
         }
     }
 }

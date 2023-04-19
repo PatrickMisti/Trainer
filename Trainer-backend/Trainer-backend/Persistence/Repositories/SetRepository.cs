@@ -28,5 +28,12 @@ namespace Trainer_backend.Persistence.Repositories
         {
             return await GetAll();
         }
+
+        public async Task<bool> Merge(Set set)
+        {
+            var res = await GetById(set.Id);
+            set.WorkSetId = res.WorkSetId;
+            return await Update(set) > 0;
+        }
     }
 }

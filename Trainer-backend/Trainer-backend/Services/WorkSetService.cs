@@ -44,7 +44,7 @@ namespace Trainer_backend.Services
 
         public async Task<bool> UpdateWorkSet(WorkSet workSet)
         {
-            return await _repo.Update(workSet) > 0;
+            return await _repo.Merge(workSet);
         }
     }
 }

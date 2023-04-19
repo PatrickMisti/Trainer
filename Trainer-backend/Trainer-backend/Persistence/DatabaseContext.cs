@@ -6,7 +6,10 @@ namespace Trainer_backend.Persistence
 {
     public class DatabaseContext: DbContext
     {
-        public readonly string _connectionString = "Host=localhost;Database=Trainer;Port=5432;Username=app;Password=app;";
+        private readonly string _connectionString = "Host=localhost;Database=Trainer;Port=5432;Username=app;Password=app;";
+
+        private readonly string _defaultConnectionString =
+            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=trainer;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
@@ -38,9 +41,14 @@ namespace Trainer_backend.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+#if !DEBUG
             optionsBuilder
                 .UseNpgsql(_connectionString, options => options.EnableRetryOnFailure(2))
                 .EnableSensitiveDataLogging();
+#endif
+#if DEBUG
+            optionsBuilder.UseSqlServer(_defaultConnectionString);
+#endif
 
             base.OnConfiguring(optionsBuilder);
         }
@@ -58,7 +66,7 @@ namespace Trainer_backend.Persistence
             modelBuilder.Entity<WorkSet>();
             modelBuilder.Entity<Routine>();
         }
-        #endregion
+#endregion
 
         public static DbContext CreateDatabase(DbContext context) // todo maybe Database class
         {

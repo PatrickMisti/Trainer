@@ -7,9 +7,8 @@ namespace Trainer_backend.Model
     [Serializable]
     public class Routine: BaseEntity
     {
-        [Required]
         [DataMember]
-        public List<WorkSet> WorkSets { get; set; } = new ();
+        public virtual List<WorkSet> WorkSets { get; set; } = new ();
         [Required]
         [DataMember]
         public DateTime Date { get; set; }

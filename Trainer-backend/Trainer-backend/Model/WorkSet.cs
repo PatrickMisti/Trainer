@@ -9,11 +9,11 @@ namespace Trainer_backend.Model
     {
         [Required]
         [DataMember]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Required]
         [DataMember]
-        public List<Set> Sets { get; set; }
+        public virtual List<Set> Sets { get; set; } = new ();
 
         [DataMember]
         [JsonIgnore]
