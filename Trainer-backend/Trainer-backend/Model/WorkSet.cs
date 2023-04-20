@@ -16,7 +16,6 @@ namespace Trainer_backend.Model
         public virtual List<Set> Sets { get; set; } = new ();
 
         [DataMember]
-        [JsonIgnore]
         public int RoutineId { get; set; }
     }
 }

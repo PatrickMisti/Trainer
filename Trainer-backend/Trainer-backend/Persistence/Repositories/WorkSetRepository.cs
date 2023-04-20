@@ -28,14 +28,5 @@ namespace Trainer_backend.Persistence.Repositories
             var i = db.WorkSets.Include(p => p.Sets).ToList();
             return i;
         }
-
-        public async Task<bool> Merge(WorkSet work)
-        {
-            await using var db = new DatabaseContext();
-            var i = await GetById(work.Id);
-            work.RoutineId = i.RoutineId;
-            return await Update(work) > 0;
-        }
-
     }
 }

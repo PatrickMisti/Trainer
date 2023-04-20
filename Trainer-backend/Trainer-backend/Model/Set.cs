@@ -13,7 +13,7 @@ namespace Trainer_backend.Model
         [Required]
         [DataMember]
         public int Repetition { get; set; }
-        [JsonIgnore]
+        [DataMember]
         public int WorkSetId { get; set; }
     }
 }

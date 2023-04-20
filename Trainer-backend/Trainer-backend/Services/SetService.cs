@@ -41,7 +41,7 @@ namespace Trainer_backend.Services
 
         public async Task<bool> UpdateSet(Set set)
         {
-            return await _repo.Merge(set);
+            return await _repo.Update(set) > 0;
         }
     }
 }
