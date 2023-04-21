@@ -8,18 +8,30 @@ import { ShellComponent } from './components/shell/shell.component';
 import { HttpWrapperService } from "./services/http-wrapper.service";
 import { HttpClientModule } from "@angular/common/http";
 import { TrainingSettingsComponent } from './components/training-settings/training-settings.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatCardModule} from "@angular/material/card";
+import { RoutineDashboardComponent } from './components/routine-dashboard/routine-dashboard.component';
+import {FlexModule} from "@angular/flex-layout";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
     AppComponent,
     ShellComponent,
-    TrainingSettingsComponent
+    TrainingSettingsComponent,
+    RoutineDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatCardModule,
+    FlexModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [
     HttpWrapperService

@@ -1,3 +1,4 @@
+import {Sets} from "./sets";
 
 export class Workset {
   id: number;
