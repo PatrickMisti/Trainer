@@ -4,7 +4,10 @@ import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-routine-dashboard',
-  templateUrl: './routine-dashboard.component.html'
+  templateUrl: './routine-dashboard.component.html',
+  styles:[
+    /*':host::ng-deep {  .mdc-text-field{padding: 0 !important;}}'*/
+  ]
 })
 export class RoutineDashboardComponent implements OnInit {
 
@@ -12,6 +15,18 @@ export class RoutineDashboardComponent implements OnInit {
   routine!: Routine;
 
   settingsForm!: FormGroup;
+
+  isEdit: boolean = false;
+
+  getSetAverage(sets:FormArray) {
+    let avgWeight = 0;
+    let avgRep = 0 ;
+    for (const set of sets.controls) {
+      avgRep += set.get('rep')?.value
+      avgWeight += set.get('weight')?.value
+    }
+    return `${avgWeight / sets.length}x${avgRep / sets.length}`
+  }
 
   get workForm() : FormArray {
     return this.settingsForm.get("work") as FormArray;
@@ -37,4 +52,5 @@ export class RoutineDashboardComponent implements OnInit {
     });
   }
 
+  protected readonly FormArray = FormArray;
 }

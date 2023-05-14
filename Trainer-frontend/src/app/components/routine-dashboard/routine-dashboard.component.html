@@ -1,28 +1,40 @@
-<mat-card [formGroup]="settingsForm">
+<mat-card [formGroup]="settingsForm" style="margin: 10px">
   <mat-card-header>
     <mat-card-title>Routine</mat-card-title>
   </mat-card-header>
-  <mat-card-content formArrayName="work">
+  <mat-card-content formArrayName="work" fxLayout="column" style="padding-bottom: 10px">
+    <div fxLayout="row" style="padding-left: 24px; padding-right: 24px; margin-right: 8px">
+      <div fxFlex="50"></div>
+      <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end"><span>W/R</span></div>
+    </div>
     <div *ngFor="let work of workForm.controls; let i = index" [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center">
-      <div>
-        <mat-form-field>
-          <mat-label>Exercise</mat-label>
-          <input matInput formControlName="name">
-        </mat-form-field>
-      </div>
-      <div formArrayName="sets">
-        <div *ngFor="let element of setForm(i).controls; let y = index" [formGroupName]="y" fxLayout="row">
-          <mat-form-field>
-            <input type="number" matInput formControlName="weight">
-          </mat-form-field>
-          <mat-form-field>
-            <input type="number" matInput formControlName="rep">
-          </mat-form-field>
+      <mat-expansion-panel hideToggle fxFlex>
+        <mat-expansion-panel-header>
+          <div fxFlex="50">
+            <span style="font-size: 20px">{{work.get("name")?.value}}</span>
+          </div>
+          <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+            <mat-label>{{getSetAverage(setForm(i))}}</mat-label>
+          </div>
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let sets of setForm(i).controls; let j = index" fxLayout="column">
+          <div fxLayout="row" style="margin-right: 8px">
+            <div fxFlex="50" style="padding: 10px">Set {{j + 1}}</div>
+            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center end">
+              {{sets.get('weight')?.value}}x{{sets.get('rep')?.value}}
+            </div>
+          </div>
         </div>
-      </div>
+
+      </mat-expansion-panel>
     </div>
   </mat-card-content>
   <mat-card-footer fxLayout fxLayoutAlign="end center">
     <span>{{this.settingsForm.get('date')!.value | date: "dd.MM.yyyy"}}</span>
   </mat-card-footer>
+
+  <div style="position:absolute; right: 8px;top: 8px" *ngIf="isEdit">
+    <button mat-icon-button><mat-icon>edit</mat-icon></button>
+  </div>
 </mat-card>

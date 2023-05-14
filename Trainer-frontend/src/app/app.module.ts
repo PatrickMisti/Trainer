@@ -11,9 +11,12 @@ import { TrainingSettingsComponent } from './components/training-settings/traini
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatCardModule} from "@angular/material/card";
 import { RoutineDashboardComponent } from './components/routine-dashboard/routine-dashboard.component';
-import {FlexModule} from "@angular/flex-layout";
+import {FlexLayoutModule, FlexModule} from "@angular/flex-layout";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -31,7 +34,11 @@ import {MatInputModule} from "@angular/material/input";
     MatCardModule,
     FlexModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    FlexLayoutModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     HttpWrapperService
